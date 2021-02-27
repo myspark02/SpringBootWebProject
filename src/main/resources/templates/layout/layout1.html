@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<th:block th:fragment="setContent(content)">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.header {
+			width:10vw;
+			height : 20vh;
+			background-color: aqua;
+		}
+		.content {
+			width: 100vw;
+			height: 70vh;
+			background-color: lightgray;
+		}
+		.footer {
+			width: 100vw;
+			height: 10vh;
+			background-color: green
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<h1>HEADER</h1>
+	</div>
+	
+	<div class="content">
+		<th:block th:replace="${content}">
+		</th:block>
+	</div>
+	
+	<div class="footer">
+		<H1>FOOTER</H1>
+	</div>
+	
+</body>
+</th:block>
+</html>
