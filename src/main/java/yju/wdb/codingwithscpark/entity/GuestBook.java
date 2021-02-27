@@ -1,6 +1,5 @@
 package yju.wdb.codingwithscpark.entity;
 
-import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
@@ -56,4 +55,3 @@ public class GuestBook extends BaseEntity {
 		return "gno:" + gno + ", title:"+title+", content:"+ content + ", writer:" + writer;
 	}
 }
-
