@@ -43,6 +43,18 @@ public class GuestBook extends BaseEntity {
 		return gno;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	
+	public String getWriter() {
+		return writer;
+	}
+	
 	public void changeTitle(String title) {
 		this.title = title;
 	}

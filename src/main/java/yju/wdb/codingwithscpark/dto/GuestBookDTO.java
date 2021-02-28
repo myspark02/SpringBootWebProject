@@ -17,12 +17,26 @@ public class GuestBookDTO {
 	private String writer;
 	private LocalDateTime regDate, modDate;
 	
-	public GuestBookDTO(String title, String content, String writer) {
-		super();
+	public GuestBookDTO(Long gno, String title, String content, String writer) {
+		this.gno = gno;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
 	}
+	
+	public GuestBookDTO( String title, String content, String writer) {
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "GuestBookDTO [gno=" + gno + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", regDate=" + regDate + ", modDate=" + modDate + "]";
+	}
+
 	
 	public GuestBookDTO() {
 		
