@@ -17,11 +17,17 @@ public class GuestBookDTO {
 	private String writer;
 	private LocalDateTime regDate, modDate;
 	
+	public GuestBookDTO(Long gno, String title, String content, String writer, 
+			LocalDateTime regDate, LocalDateTime modDate) {
+		this(gno, title, content, writer);
+		this.regDate = regDate;
+		this.modDate = modDate;
+	}
+	
+	
 	public GuestBookDTO(Long gno, String title, String content, String writer) {
+		this(title, content, writer);
 		this.gno = gno;
-		this.title = title;
-		this.content = content;
-		this.writer = writer;
 	}
 	
 	public GuestBookDTO( String title, String content, String writer) {

@@ -21,5 +21,15 @@ abstract public class BaseEntity {
 	@LastModifiedDate
 	@Column(name="moddate")
 	private LocalDateTime modDate;
+
+	public LocalDateTime getRegDate() {
+		return regDate;
+	}
+
+
+	public LocalDateTime getModDate() {
+		return modDate;
+	}
+
 	
 }

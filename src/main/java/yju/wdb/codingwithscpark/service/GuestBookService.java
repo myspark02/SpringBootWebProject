@@ -14,7 +14,8 @@ public interface GuestBookService {
 	}
 	
 	default GuestBookDTO convertEntity2DTO(GuestBook entity) {
-		GuestBookDTO dto = new GuestBookDTO(entity.getGno(), entity.getTitle(), entity.getContent(), entity.getWriter());
+		GuestBookDTO dto = new GuestBookDTO(entity.getGno(), entity.getTitle(), 
+				entity.getContent(), entity.getWriter(), entity.getRegDate(), entity.getModDate());
 		return dto;
 	}
 	
