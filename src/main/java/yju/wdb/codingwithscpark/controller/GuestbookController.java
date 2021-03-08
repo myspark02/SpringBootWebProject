@@ -22,9 +22,17 @@ public class GuestbookController {
 	@Autowired
 	private GuestBookService service;
 	
-	@GetMapping("/read")
+	@PostMapping("/remove")
+	public String remove(long gno, RedirectAttributes redirectAttributes) {
+		log.debug("[Post] remove:" + gno);
+		service.remove(gno);
+		redirectAttributes.addFlashAttribute("msg", gno);
+		return "redirect:/guestbook/list";
+	}
+	
+	@GetMapping({"/read", "/modify"})
 	public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
-		log.debug("read[" + gno + "]");
+		log.debug("[Get]read|modify [" + gno + "]");
 		GuestBookDTO dto = service.read(gno);
 		model.addAttribute("dto", dto);
 	}

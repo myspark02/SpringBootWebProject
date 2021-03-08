@@ -24,6 +24,25 @@ public class GuestBookServiceImpl implements GuestBookService {
 	
 	@Autowired
 	private GuestbookRepository repository; // You should declare it as final
+	
+
+	@Override
+	public void remove(Long gno) {
+		repository.deleteById(gno);
+	}
+
+
+	@Override
+	public void modify(GuestBookDTO dto) {
+		// updatable fields are title and content
+		Optional<GuestBook> result = repository.findById(dto.getGno());
+		if (result.isPresent()) {
+			GuestBook entity = result.get();
+			entity.changeTitle(dto.getTitle());
+			entity.changeContent(dto.getContent());
+			repository.save(entity);
+		}
+	}
 
 	@Override
 	public Long register(GuestBookDTO dto) {
@@ -59,5 +78,5 @@ public class GuestBookServiceImpl implements GuestBookService {
 		Optional<GuestBook> result = repository.findById(gno);
 		return result.isPresent()? convertEntity2DTO(result.get()) : null;
 	}
-}
+}	
 
