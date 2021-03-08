@@ -22,6 +22,13 @@ public class GuestbookController {
 	@Autowired
 	private GuestBookService service;
 	
+	@GetMapping("/read")
+	public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+		log.debug("read[" + gno + "]");
+		GuestBookDTO dto = service.read(gno);
+		model.addAttribute("dto", dto);
+	}
+	
 	@GetMapping("/")
 	public String index() {
 		return "redirect:/guestbook/list";

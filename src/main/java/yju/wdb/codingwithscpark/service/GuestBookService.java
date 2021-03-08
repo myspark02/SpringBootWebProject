@@ -20,5 +20,7 @@ public interface GuestBookService {
 	}
 	
 	public PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO requestDTO);
+	
+	GuestBookDTO read(Long gno);
 }
 
