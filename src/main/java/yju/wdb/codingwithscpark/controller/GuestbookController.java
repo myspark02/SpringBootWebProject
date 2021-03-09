@@ -22,6 +22,20 @@ public class GuestbookController {
 	@Autowired
 	private GuestBookService service;
 	
+	@PostMapping("/modify")
+	public String modify(GuestBookDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, 
+															RedirectAttributes redirectAttributes)  {
+		log.debug("[Post] modify.................. : " + dto);
+		service.modify(dto);
+		
+		redirectAttributes.addAttribute("page", requestDTO.getPage());
+		redirectAttributes.addAttribute("gno", dto.getGno());
+		redirectAttributes.addAttribute("type", requestDTO.getType());
+		redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());
+		
+		return "redirect:/guestbook/read";
+	}
+	
 	@PostMapping("/remove")
 	public String remove(long gno, RedirectAttributes redirectAttributes) {
 		log.debug("[Post] remove:" + gno);

@@ -23,7 +23,7 @@ public class GuestbookRepositoryTest {
 	@Autowired
 	private GuestbookRepository guestbookRepository;
 	
-//	@Test
+	@Test
 	public void insertDummies() {
 		
 		IntStream.rangeClosed(1, 300).forEach(i -> {
@@ -66,7 +66,7 @@ public class GuestbookRepositoryTest {
 		
 	}
 
-	@Test
+//	@Test
 	public void testQuery2() {
 		Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
 		

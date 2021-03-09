@@ -13,6 +13,26 @@ public class GuestBookServiceTest {
 	@Autowired
 	private GuestBookService service;
 	
+	@Test
+	public void testSearch() {
+		PageRequestDTO pageRequestDTO = new PageRequestDTO(1, 10);
+		pageRequestDTO.setType("tc");
+		pageRequestDTO.setKeyword("한글");
+		
+		PageResultDTO<GuestBookDTO, GuestBook> resultDTO = service.getList(pageRequestDTO);
+		
+		System.out.println("PREV:" + resultDTO.isPrev());
+		System.out.println("NEXT:" + resultDTO.isNext());
+		System.out.println("TOTAL:" + resultDTO.getTotalPage());
+		
+		System.out.println("--------------------------------------");
+		for (GuestBookDTO guestBookDTO : resultDTO.getDtoList()) 
+			System.out.println(guestBookDTO);
+		
+		System.out.println("=======================================");
+		resultDTO.getPageList().forEach(i -> System.out.println(i));
+	}
+
 	//@Test
 	public void testRegister() {
 		GuestBookDTO guestbookDTO = new GuestBookDTO("Sample Title...!", "Sample Content...!", "user1");
@@ -20,7 +40,7 @@ public class GuestBookServiceTest {
 		System.out.println(service.register(guestbookDTO));
 	}
 	
-	@Test
+//	@Test
 	public void testList() {
 		PageRequestDTO pageRequestDTO = new PageRequestDTO(1, 10);
 		PageResultDTO<GuestBookDTO, GuestBook> resultDTO = service.getList(pageRequestDTO);

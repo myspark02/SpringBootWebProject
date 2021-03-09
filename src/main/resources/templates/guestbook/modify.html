@@ -4,6 +4,9 @@
 	<th:block th:fragment="content">
 		<h1 class="mt-4">GuestBook Modify Page</h1>
 		<form th:action="@{/guestbook/modify}" method="post">
+			<input type="hidden" name="page" th:value="${requestDTO.page}">
+			<input type="hidden" name="type" th:value="${requestDTO.type}">
+			<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
 			<div class="form-group">
 				<label>GNo.</label>
 				<input type="text" class="form-control" name="gno" th:value="${dto.gno}" readonly>
@@ -39,6 +42,28 @@
 		<button class="btn btn-danger removeBtn">Remove</button>
 		<script th:inline="javascript">
 			var actionForm = $("form");
+			$(".listBtn").click(function(){
+				var pageInfo = $("input[name='page']");
+				var type = $("input[name='type']");
+				var keyword = $("input[name='keyword']");
+				
+				actionForm.empty();
+				actionForm.append(pageInfo);
+				actionForm.append(type);
+				actionForm.append(keyword);
+				
+				actionForm.attr("action", "/guestbook/list").attr("method", "get");
+				//console.log(actionForm.html()); // first check the html then comment
+				actionForm.submit(); // after checking the result of above line, then uncomment 
+			})
+			
+			$(".modifyBtn").click(function(){
+				if (!confirm("수정하시겠습니까?")) {
+					return;
+				}
+				actionForm.attr("action", "/guestbook/modify").attr("method", "post").submit();
+			})
+			
 			$(".removeBtn").click(function() {
 				actionForm.attr("action", "/guestbook/remove").attr("method", "post");
 				actionForm.submit();
