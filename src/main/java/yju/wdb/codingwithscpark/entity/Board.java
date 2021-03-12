@@ -13,6 +13,14 @@ public class Board extends BaseEntity {
 	@ManyToOne (fetch = FetchType.LAZY) // Lazy loading
 	private Member writer; 
 	
+	public void changeTitle(String title) {
+		this.title = title;
+	}
+	
+	public void changeContent(String content) {
+		this.content = content;
+	}
+	
 	public Long getBno() {
 		return bno;
 	}
