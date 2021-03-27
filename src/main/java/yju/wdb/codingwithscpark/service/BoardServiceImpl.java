@@ -6,7 +6,9 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.hql.internal.ast.tree.BinaryLogicOperatorNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.*;
@@ -44,7 +46,9 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public void removeWithReplies(Long bno) {
-		replyRepository.deleteById(bno);
+		
+		replyRepository.deleteByBno(bno);
+	
 		repository.deleteById(bno);
 		
 	}
@@ -61,10 +65,15 @@ public class BoardServiceImpl implements BoardService {
 		log.debug(pageRequestDTO);
 		
 		Function<Object[], BoardDTO> fn = (en -> convertEntity2DTO((Board)en[0], (Member)en[1], (Long)en[2]));
-		Page<Object[]> result = repository.getBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("bno").descending()));
+//		Page<Object[]> result = repository.getBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("bno").descending()));
+		
+		Page<Object[]> result = repository.searchPage(pageRequestDTO.getType(), pageRequestDTO.getKeyword(), 
+													pageRequestDTO.getPageable(Sort.by("bno").descending()));	
+		
 		return new PageResultDTO<>(result, fn);
 	}
 
+	
 	@Override
 	public Long register(BoardDTO dto) {
 		log.debug("register : " + dto);

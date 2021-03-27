@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import yju.wdb.codingwithscpark.entity.Board;
+import yju.wdb.codingwithscpark.repository.search.SearchBoardRepository;
+
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoardRepository {
 	@Query("select b, w, count(r)" + 
 			" from Board b left join b.writer w"  +   // 공백 주의
 			" left outer join Reply r on r.board = b" +
