@@ -1,5 +1,7 @@
 package yju.wdb.codingwithscpark.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +33,14 @@ public class Reply extends BaseEntity {
 		this.board = board;
 		this.replyer = replyer;
 	}
+	
+	public Reply(Long rno, String text, String replyer, Board board) {
+		this.rno = rno;
+		this.text = text;
+		this.board = board;
+		this.replyer = replyer;
+	}
+	
 	public Reply() {
 		super();
 	}
