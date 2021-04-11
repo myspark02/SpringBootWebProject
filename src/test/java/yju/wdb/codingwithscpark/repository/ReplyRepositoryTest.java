@@ -1,6 +1,6 @@
 package yju.wdb.codingwithscpark.repository;
 
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,15 @@ public class ReplyRepositoryTest {
 	@Autowired
 	private ReplyRepository replyRepository;
 	
+	
 	@Test
+	public void testListByBoard() {
+		List<Reply> replyList = replyRepository.getRepliesByBoardOrderByRno(new Board(52L));
+		
+		replyList.forEach(reply -> System.out.println(reply));
+	}
+	
+//	@Test
 	public void testRead1() {
 		// java.util.Optional
 		// 100 must exist in board table as a bno column of a record

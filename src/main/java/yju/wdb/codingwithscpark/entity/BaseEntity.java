@@ -26,10 +26,7 @@ abstract public class BaseEntity {
 		return regDate;
 	}
 
-
 	public LocalDateTime getModDate() {
 		return modDate;
 	}
-
-	
 }
