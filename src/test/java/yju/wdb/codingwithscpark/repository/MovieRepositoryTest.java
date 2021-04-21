@@ -3,10 +3,12 @@ package yju.wdb.codingwithscpark.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.*;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import yju.wdb.codingwithscpark.entity.*;
 
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -18,9 +20,20 @@ public class MovieRepositoryTest {
 	@Autowired
 	private MovieImageRepository imageRepository;
 	
-	@Commit
-	@Transactional
 	@Test
+	public void testListPage() {
+		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "mno"));
+		Page<Object[]> result = movieRepository.getListPage(pageRequest);
+		
+		for (Object[] objects : result.getContent()) {
+			System.out.println(Arrays.toString(objects));
+		}
+		
+	}
+	
+//	@Commit
+//	@Transactional
+//	@Test
 	public void insertMovies() {
 		IntStream.rangeClosed(1, 100).forEach(i -> {
 			Movie movie = new Movie("Movie..." + i);
