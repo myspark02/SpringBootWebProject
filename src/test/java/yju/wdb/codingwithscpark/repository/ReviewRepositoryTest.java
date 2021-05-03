@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import yju.wdb.codingwithscpark.entity.*;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -13,7 +14,23 @@ public class ReviewRepositoryTest {
 	@Autowired
 	private ReviewRepository reviewRepository;
 	
-	@Test
+	
+//	@Test
+	public void testGetMovieReviews() {
+		Movie movie = new Movie(94L);
+		
+		List<Review> result = reviewRepository.findByMovie(movie);
+		
+		result.forEach(movieReview -> {
+			System.out.print(movieReview.getReviewnum());
+			System.out.print("\t"+movieReview.getGrade());
+			System.out.print("\t"+movieReview.getText());
+			System.out.print("\t"+movieReview.getMember().getEmail());
+			System.out.print("------------------------------");
+		});
+	}
+	
+//	@Test
 	public void insertMovieReviews() {
 		// 200 개의 리뷰를 등록
 		IntStream.rangeClosed(1,  200).forEach(i -> {

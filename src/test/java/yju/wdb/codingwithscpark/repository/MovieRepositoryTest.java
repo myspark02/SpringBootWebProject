@@ -11,6 +11,7 @@ import yju.wdb.codingwithscpark.entity.*;
 import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.IntStream;
+import java.util.*;
 
 @SpringBootTest
 public class MovieRepositoryTest {
@@ -21,6 +22,16 @@ public class MovieRepositoryTest {
 	private MovieImageRepository imageRepository;
 	
 	@Test
+	public void testGetMovieWithAll() {
+		List<Object[]> result = movieRepository.getMovieWithAll(94L);
+		
+		System.out.println(result);
+		
+		for (Object[] arr : result) 
+			System.out.println(Arrays.toString(arr));
+	}
+	
+//	@Test
 	public void testListPage() {
 		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "mno"));
 		Page<Object[]> result = movieRepository.getListPage(pageRequest);
