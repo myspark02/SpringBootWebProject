@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Upload File Test</title>
+</head>
+<body>
+	<input name="uploadFile" type="file" multiple>
+	<button class="uploadBtn">Upload</button>
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+			crossorigin="anonymous"></script>
+	<script>
+		$(".uploadBtn").click(function() {
+			var formData = new FormData();
+			var inputFile = $("input[type='file']");
+			var files = inputFile[0].files;
+			
+			for (var i = 0; i < files.length; i++) {
+				console.log(files[i]);
+				formData.append("uploadFiles", files[i]);
+			}
+			
+			// 실제 업로드 부분
+			// upload ajax
+			$.ajax({
+				url: '/uploadAjax', 
+				processData : false, 
+				contentType : false, 
+				data : formData, 
+				type : 'POST', 
+				dataType: 'json', 
+				success : function(result) {
+					console.log(result);
+					//나중에 화면 처
+				}, 
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log(textStatus);
+				}
+			});
+		});
+		
+	</script>
+</body>
+</html>
+
