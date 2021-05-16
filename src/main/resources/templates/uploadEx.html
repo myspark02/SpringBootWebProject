@@ -8,10 +8,44 @@
 	<input name="uploadFile" type="file" multiple>
 	<button class="uploadBtn">Upload</button>
 	
+	<div class="uploadResult"> </div>
+	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
 			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
 			crossorigin="anonymous"></script>
 	<script>
+		function showUploadedImages(arr) {
+			console.log(arr);
+			
+			var divArea = $(".uploadResult");
+			
+			var str = "";
+			
+			for (var i = 0; i < arr.length; i++) {
+				str += "<div>";
+				str += "<img src='/display?fileName="+arr[i].thumbnailURL+"'>";
+				str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>REMOVE</button>";
+				str += "</div>";
+			}
+			divArea.append(str);
+		}
+		
+		$(".uploadResult").on("click", ".removeBtn", function(e) {
+			var target = $(this);
+			var fileName = target.data("name");
+			var targetDiv = $(this).closest("div");
+			
+			console.log(fileName);
+			
+			$.post("/removeFile", {fileName:fileName}, function(result){
+				console.log(result);
+				if (result == true) {
+					targetDiv.remove();
+				}
+			});
+		
+		}); 
+		
 		$(".uploadBtn").click(function() {
 			var formData = new FormData();
 			var inputFile = $("input[type='file']");
@@ -24,7 +58,7 @@
 			
 			// 실제 업로드 부분
 			// upload ajax
-			$.ajax({
+		$.ajax({
 				url: '/uploadAjax', 
 				processData : false, 
 				contentType : false, 
@@ -32,8 +66,9 @@
 				type : 'POST', 
 				dataType: 'json', 
 				success : function(result) {
-					console.log(result);
-					//나중에 화면 처
+					// console.log(result);
+					//나중에 화면 처리
+					showUploadedImages(result); 
 				}, 
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.log(textStatus);
