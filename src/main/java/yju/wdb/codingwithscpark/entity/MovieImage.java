@@ -34,6 +34,13 @@ public class MovieImage extends BaseEntity {
 		this.path = path;
 		this.movie = movie;
 	}
+	
+	public MovieImage(String path, String imageName, String uuid, Movie movie) {
+		this.path = path;
+		this.imageName = imageName;
+		this.uuid = uuid;
+		this.movie = movie;
+	}
 
 	@Override
 	public String toString() {
